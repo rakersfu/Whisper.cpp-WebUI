@@ -1,12 +1,18 @@
-
 import gradio as gr
 import subprocess
 import os
 import shutil
 
-WHISPER_BIN = r"F:/whisper.cpp/build/bin/Release/whisper-cli.exe"
-MODEL_DIR = r"F:/whisper.cpp/models"
-OUTPUT_DIR = r"F:/whisper.cpp/outputs"
+#设置绝对路径
+#WHISPER_BIN = r"F:/whisper.cpp/build/bin/Release/whisper-cli.exe"
+#MODEL_DIR = r"F:/whisper.cpp/models"
+#OUTPUT_DIR = r"F:/whisper.cpp/outputs"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+WHISPER_BIN = os.path.join(BASE_DIR, "build/bin/Release/whisper-cli.exe")
+MODEL_DIR   = os.path.join(BASE_DIR, "models")
+OUTPUT_DIR  = os.path.join(BASE_DIR, "outputs")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -102,5 +108,3 @@ iface = gr.Interface(
 )
 
 iface.launch(server_name="0.0.0.0", server_port=7860)
-
-
