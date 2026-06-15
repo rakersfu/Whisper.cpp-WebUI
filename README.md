@@ -107,11 +107,14 @@ import subprocess
 import os
 import shutil
 
-WHISPER_BIN = r"F:/whisper.cpp/build/bin/Release/whisper-cli.exe"
-MODEL_DIR = r"F:/whisper.cpp/models"
-OUTPUT_DIR = r"F:/whisper.cpp/outputs"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+WHISPER_BIN = os.path.join(BASE_DIR, "build/bin/Release/whisper-cli.exe")
+MODEL_DIR   = os.path.join(BASE_DIR, "models")
+OUTPUT_DIR  = os.path.join(BASE_DIR, "outputs")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 # 只加载 ggml 开头的模型
 MODELS = [f for f in os.listdir(MODEL_DIR) if f.startswith("ggml") and f.endswith(".bin")]
