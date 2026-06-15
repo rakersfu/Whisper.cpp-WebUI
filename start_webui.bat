@@ -20,9 +20,46 @@ if /i "%cd%"=="%TARGET_DIR:~0,-1%" (
     exit /b
 )
 
-REM 使用 Python 启动 webui4.py
-echo [INFO] 正在启动 webui4.py ...
-python webui4.py
+REM 检查 Python 是否存在
+where python >nul 2>nul
+if errorlevel 1 (
+    echo [ERROR] 未找到 Python，请确认已安装并添加到 PATH
+    pause
+    exit /b
+) else (
+    for /f "delims=" %%i in ('where python') do (
+        echo [OK] 已找到 Python: %%i
+        goto :found
+    )
+)
+:found
+
+REM 检查 ffmpeg 是否存在
+where ffmpeg >nul 2>nul
+if errorlevel 1 (
+    echo [ERROR] 未找到 ffmpeg，请确认已安装并添加到 PATH
+    pause
+    exit /b
+) else (
+    for /f "delims=" %%i in ('where ffmpeg') do (
+        echo [OK] 已找到 ffmpeg: %%i
+        goto :ffmpeg_found
+    )
+)
+:ffmpeg_found
+
+REM 检查 webui.py 是否存在
+if exist "webui.py" (
+    echo [OK] 已找到 webui.py，准备启动...
+) else (
+    echo [ERROR] 未找到 webui.py，请确认文件在目录: %cd%
+    pause
+    exit /b
+)
+
+REM 使用 Python 启动 webui.py
+echo [INFO] 正在启动 webui.py ...
+python webui.py
 
 echo ============================================
 echo   WebUI 已退出
