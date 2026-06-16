@@ -5,10 +5,10 @@ echo ============================================
 echo Whisper.cpp Vulkan Build Script
 echo ============================================
 
-:: 检查 VULKAN_SDK 环境变量
+:: Check VULKAN_SDK environment variable
 if "%VULKAN_SDK%"=="" (
-    echo [错误] 未检测到 VULKAN_SDK 环境变量！
-    echo 请安装 Vulkan SDK 并设置环境变量，例如：
+    echo [ERROR] VULKAN_SDK environment variable not detected!
+    echo Please install Vulkan SDK and set the environment variable, for example:
     echo   VULKAN_SDK=C:\VulkanSDK\1.4.xxx.x
     pause
     exit /b 1
@@ -16,31 +16,31 @@ if "%VULKAN_SDK%"=="" (
     echo [OK] VULKAN_SDK = %VULKAN_SDK%
 )
 
-:: 检查 glslc.exe 是否存在
+:: Check if glslc.exe exists
 if exist "%VULKAN_SDK%\Bin\glslc.exe" (
-    echo [OK] 找到 glslc.exe
+    echo [OK] Found glslc.exe
 ) else (
-    echo [错误] 未找到 glslc.exe，请确认 Vulkan SDK 安装完整！
+    echo [ERROR] glslc.exe not found, please make sure Vulkan SDK is fully installed!
     pause
     exit /b 1
 )
 
-:: 删除旧的 build 文件夹
+:: Remove old build folder
 if exist build (
-    echo 清理旧的 build 文件夹...
+    echo Cleaning old build folder...
     rmdir /s /q build
 )
 
-:: 运行 CMake 配置
-echo 正在运行 CMake 配置...
+:: Run CMake configuration
+echo Running CMake configuration...
 cmake -B build -DGGML_VULKAN=1 -G "Visual Studio 17 2022" -A x64
 
-:: 编译项目
-echo 正在编译项目...
+:: Build project
+echo Building project...
 cmake --build build --config Release
 
 echo ============================================
-echo 编译完成！可执行文件在 build\bin\whisper-cli.exe
+echo Build completed! Executable is at build\bin\whisper-cli.exe
 echo ============================================
 
 pause
