@@ -1,11 +1,13 @@
 @echo off
 chcp 65001 >nul
+
 echo ============================================
 echo   Start Whisper.cpp WebUI
 echo ============================================
 
 REM Save target directory
 set TARGET_DIR=%~dp0
+set PATH=%PATH%;C:\Windows\System32;C:\Windows;C:\Windows\System32\Wbem
 
 REM Switch to the script directory
 cd /d "%TARGET_DIR%"
