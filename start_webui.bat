@@ -6,6 +6,7 @@ echo ============================================
 
 REM 保存目标目录
 set TARGET_DIR=%~dp0
+set PATH=%PATH%;C:\Windows\System32;C:\Windows;C:\Windows\System32\Wbem
 
 REM 切换到脚本所在目录
 cd /d "%TARGET_DIR%"
